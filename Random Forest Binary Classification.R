@@ -69,10 +69,10 @@ drf_params <- list(ntrees = c(50, 75, 100, 125, 150),
                    max_depth = c(5, 7, 10, 12, 15))
 
 # Parameter Grid Search
-drf5 <- h2o.grid("randomForest",
+drf <- h2o.grid("randomForest",
                 y = "Group_Membership",
                 training_frame = train_h2o,
-                grid_id = "drf5",
+                grid_id = "drf",
                 hyper_params = drf_params,
                 categorical_encoding = 'enum',
                 min_rows = 1,
@@ -83,13 +83,17 @@ drf5 <- h2o.grid("randomForest",
                 seed = 500)
 
 # Sort models
-f1_model <- h2o.getGrid(grid_id = "drf5",
+f1_model <- h2o.getGrid(grid_id = "drf",
                         sort_by = "f1")
 
 # Choose best model
 best_f1 <- h2o.getModel(f1_model@model_ids[[1]])
 
 best_f1@model[['model_summary']]
+
+# Confusion Matrix
+conf_f1 <- h2o.confusionMatrix(best_f1, test_h2o)
+conf_f1
 
 # Var Imp
 imp_f1 <- h2o.varimp_plot(best_f1, num_of_features = 17)
@@ -100,20 +104,4 @@ h2o.pd_plot(best_f1, test_h2o, column = 'Psychological')
 h2o.pd_plot(best_f1, test_h2o, column = 'Radical_Beliefs')
 h2o.pd_plot(best_f1, test_h2o, column = 'Age')
 h2o.pd_plot(best_f1, test_h2o, column = 'Plot_Target1')
-
-# Confusion Matrix
-conf_f1 <- h2o.confusionMatrix(best_f1, test_h2o)
-conf_f1
-
-# example decision tree
-# library(rpart)
-# library(rpart.plot)
-# 
-# train_subset <- train[1:20, ]
-# train_subset <- train_subset %>% select(1:6)
-# 
-# fit <- rpart(Group_Membership ~ ., train, method = 'class')
-# rpart.plot(fit, extra = 106)
-# 
-# plot(pirus$Group_Membership)
 
