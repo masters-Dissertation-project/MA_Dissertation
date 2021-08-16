@@ -1,2 +1,3 @@
 # MA_Dissertation
-R Programming code for reproducible use
+Two files to reproduce analytical processes performed in MA Dissertation on Lone-Actor Terrorism.
+
