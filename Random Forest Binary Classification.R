@@ -1,5 +1,5 @@
 ###############################################################
-# Lone-Actor classification with imputed train dataset
+# Random Forest Binary Classification
 ###############################################################
 
 library(mice)
