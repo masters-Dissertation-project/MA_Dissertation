@@ -2,6 +2,11 @@
 # Lone-Actor imputed dataset for cluster analysis
 ###############################################################
 
+library(mice)
+library(dplyr)
+library(tidyr)
+library(readxl)
+pacman::p_load(pacman, rio, tidyverse)
 library(haven)
 
 # Link to download PIRUS dataset https://www.start.umd.edu/data-tools/profiles-individual-radicalization-united-states-pirus
