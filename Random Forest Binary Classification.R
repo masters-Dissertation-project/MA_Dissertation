@@ -91,6 +91,10 @@ best_f1 <- h2o.getModel(f1_model@model_ids[[1]])
 
 best_f1@model[['model_summary']]
 
+# Model Performance
+perf <- h2o.performance(best_f1, test_h2o)
+perf
+
 # Confusion Matrix
 conf_f1 <- h2o.confusionMatrix(best_f1, test_h2o)
 conf_f1
